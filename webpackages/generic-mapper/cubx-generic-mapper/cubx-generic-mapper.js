@@ -37,38 +37,38 @@
     },
 
     /**
-     *  Observe the Cubbles-Component-Model: If value for slot 'valueString' has changed ...
+     *  Observe the Cubbles-Component-Model: If value for slot 'inputString' has changed ...
      */
-    modelValueStringChanged: function (newValue) {
-      this._handleValueChanged('valueString', newValue);
+    modelInputStringChanged: function (newValue) {
+      this._handleValueChanged('inputString', newValue);
     },
 
     /**
-     *  Observe the Cubbles-Component-Model: If value for slot 'valueNumber' has changed ...
+     *  Observe the Cubbles-Component-Model: If value for slot 'inputNumber' has changed ...
      */
-    modelValueNumberChanged: function (newValue) {
-      this._handleValueChanged('valueNumber', newValue);
+    modelInputNumberChanged: function (newValue) {
+      this._handleValueChanged('inputNumber', newValue);
     },
 
     /**
-     *  Observe the Cubbles-Component-Model: If value for slot 'valueBoolean' has changed ...
+     *  Observe the Cubbles-Component-Model: If value for slot 'inputBoolean' has changed ...
      */
-    modelValueBooleanChanged: function (newValue) {
-      this._handleValueChanged('valueBoolean', newValue);
+    modelInputBooleanChanged: function (newValue) {
+      this._handleValueChanged('inputBoolean', newValue);
     },
 
     /**
-     *  Observe the Cubbles-Component-Model: If value for slot 'valueObject' has changed ...
+     *  Observe the Cubbles-Component-Model: If value for slot 'inputObject' has changed ...
      */
-    modelValueObjectChanged: function (newValue) {
-      this._handleValueChanged('valueObject', newValue);
+    modelInputObjectChanged: function (newValue) {
+      this._handleValueChanged('inputObject', newValue);
     },
 
     /**
-     *  Observe the Cubbles-Component-Model: If value for slot 'valueArray' has changed ...
+     *  Observe the Cubbles-Component-Model: If value for slot 'inputArray' has changed ...
      */
-    modelValueArrayChanged: function (newValue) {
-      this._handleValueChanged('valueArray', newValue);
+    modelInputArrayChanged: function (newValue) {
+      this._handleValueChanged('inputArray', newValue);
     },
 
     /**
@@ -78,8 +78,17 @@
      * @private
      */
     _handleValueChanged: function (slotName, value) {
-      this.model[slotName] = this._callMapperFunction(value);
-      window.setTimeout(this.repropagateValueNumber.bind(this), 300);
+      this[this._determineSetOutputSlotMethodName(slotName)](this._callMapperFunction(value));
+    },
+
+    /**
+     * Returns an output slot name based on input slot name
+     * @param inputSlotName - NAme of the input slot
+     * @returns {string}
+     * @private
+     */
+    _determineSetOutputSlotMethodName: function (inputSlotName) {
+      return inputSlotName.replace('input', 'setMapped');
     },
 
     /**

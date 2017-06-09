@@ -70,31 +70,28 @@
             ]
           },
           {
-            "slotId": "valueString",
+            "slotId": "inputString",
             "type": "string",
             "direction": [
-              "input",
-              "output"
+              "input"
             ]
           },
           {
-            "slotId": "valueNumber",
+            "slotId": "inputNumber",
             "type": "number",
             "direction": [
-              "input",
-              "output"
+              "input"
             ]
           },
           {
-            "slotId": "valueBoolean",
+            "slotId": "inputBoolean",
             "type": "boolean",
             "direction": [
-              "input",
-              "output"
+              "input"
             ]
           },
           {
-            "slotId": "valueObject",
+            "slotId": "inputObject",
             "type": "object",
             "direction": [
               "input",
@@ -102,10 +99,44 @@
             ]
           },
           {
-            "slotId": "valueArray",
+            "slotId": "inputArray",
             "type": "array",
             "direction": [
-              "input",
+              "input"
+            ]
+          },
+          {
+            "slotId": "mappedString",
+            "type": "string",
+            "direction": [
+              "output"
+            ]
+          },
+          {
+            "slotId": "mappedNumber",
+            "type": "number",
+            "direction": [
+              "output"
+            ]
+          },
+          {
+            "slotId": "mappedBoolean",
+            "type": "boolean",
+            "direction": [
+              "output"
+            ]
+          },
+          {
+            "slotId": "mappedObject",
+            "type": "object",
+            "direction": [
+              "output"
+            ]
+          },
+          {
+            "slotId": "mappedArray",
+            "type": "array",
+            "direction": [
               "output"
             ]
           }
