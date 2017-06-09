@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>&lt;cubx-generic-mapper&gt; demo</title>
+
+    <script src="../../../cubx.core.rte@2.3.1/webcomponents-lite/webcomponents-lite.js"></script>
+    <script>
+        window.cubx = {
+            "CRCInit": {
+                "rootDependencies": [
+                    {
+                        "webpackageId": "com.incowia.basic-html-components@1.2",
+                        "artifactId": "cubx-text-input"
+                    },
+                    {
+                        "webpackageId": "bootstrap-3.3.5@1.1.1",
+                        "artifactId": "bootstrap-bootstrap-css-only"
+                    }
+                ]
+            }
+        }
+    </script>
+    <script src="../../../cubx.core.rte@2.3.1/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
+
+</head>
+<body>
+<cubx-generic-mapper id="genericMapper"cubx-webpackage-id="this">
+    <cubx-core-connections style="display:none">
+        <cubx-core-connection connection-id="resultNumber" source="mappedNumber" destination="mappedNumber:value"></cubx-core-connection>
+        <cubx-core-connection connection-id="resultString" source="mappedString" destination="mappedString:value"></cubx-core-connection>
+        <cubx-core-connection connection-id="resultBoolean" source="mappedBoolean" destination="mappedBoolean:value"></cubx-core-connection>
+        <cubx-core-connection connection-id="resultObject" source="mappedObject" destination="mappedObject:value"></cubx-core-connection>
+        <cubx-core-connection connection-id="resultArray" source="mappedArray" destination="mappedArray:value"></cubx-core-connection>
+    </cubx-core-connections>
+</cubx-generic-mapper>
+<div class="container">
+    <div class="form-group">
+        <label for="mapperF">mapperFunction (string)</label>
+        <textarea class="form-control" id="mapperF" rows="24" cols="70"></textarea>
+        <button class="btn btn-primary" id="btn_setMapperF" disabled="disabled" type="button">Set</button>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="iNumber">inputNumber</label>
+            <input type="number" id="iNumber" value="5">
+            <button class="btn btn-primary" id="btn_setINumber" disabled="disabled" type="button">Set</button>
+        </div>
+        <cubx-text-input class="col-md-6" id="mappedNumber" cubx-webpackage-id="com.incowia.basic-html-components@1.2">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="label">"Mapped number"</cubx-core-slot-init>
+            </cubx-core-init>
+        </cubx-text-input>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="iString">inputString</label>
+            <input id="iString" value="Hello world">
+            <button class="btn btn-primary" id="btn_setIString" disabled="disabled" type="button">Set</button>
+        </div>
+        <cubx-text-input class="col-md-6" id="mappedString" cubx-webpackage-id="com.incowia.basic-html-components@1.2">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="label">"Mapped string"</cubx-core-slot-init>
+            </cubx-core-init>
+        </cubx-text-input>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="iBoolean">inputBoolean</label>
+            <input id="iBoolean" value="false">
+            <button class="btn btn-primary" id="btn_setIBoolean" disabled="disabled" type="button">Set</button>
+        </div>
+        <cubx-text-input class="col-md-6" id="mappedBoolean" cubx-webpackage-id="com.incowia.basic-html-components@1.2">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="label">"Mapped boolean"</cubx-core-slot-init>
+            </cubx-core-init>
+        </cubx-text-input>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="iObject">inputObject</label>
+            <input id="iObject">
+            <button class="btn btn-primary" id="btn_setIObject" disabled="disabled" type="button">Set</button>
+        </div>
+        <cubx-text-input class="col-md-6" id="mappedObject" cubx-webpackage-id="com.incowia.basic-html-components@1.2">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="label">"Mapped object"</cubx-core-slot-init>
+            </cubx-core-init>
+        </cubx-text-input>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="iArray">inputArray</label>
+            <input id="iArray" value="[1, 2, 3, 4]">
+            <button class="btn btn-primary" id="btn_setIArray" disabled="disabled" type="button">Set</button>
+        </div>
+        <cubx-text-input class="col-md-6" id="mappedArray" cubx-webpackage-id="com.incowia.basic-html-components@1.2">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="label">"Mapped array"</cubx-core-slot-init>
+            </cubx-core-init>
+        </cubx-text-input>
+    </div>
+</div>
+<script>
+    (function(){
+        'use strict';
+        var btn_setMapperF = document.querySelector('#btn_setMapperF');
+        var btn_setINumber = document.querySelector('#btn_setINumber');
+        var btn_setIString = document.querySelector('#btn_setIString');
+        var btn_setIBoolean = document.querySelector('#btn_setIBoolean');
+        var btn_setIObject = document.querySelector('#btn_setIObject');
+        var btn_setIArray = document.querySelector('#btn_setIArray');
+        var mapperF = document.querySelector('#mapperF');
+        var iNumber = document.querySelector('#iNumber');
+        var iString = document.querySelector('#iString');
+        var iBoolean = document.querySelector('#iBoolean');
+        var iObject = document.querySelector('#iObject');
+        var iArray = document.querySelector('#iArray');
+        var genericMapper = document.querySelector('cubx-generic-mapper');
+
+        mapperF.value = 'function (value) {' +
+                '\n\t if (Array.isArray(value)) {' +
+                '\n\t\tvalue.push(\'new element\');' +
+                '\n\t\treturn value;' +
+                '\n\t}else {' +
+                '\n\t\tswitch (typeof value) {' +
+                '\n\t\t\tcase \'number\': ' +
+                '\n\t\t\t\treturn value * 2;' +
+                '\n\t\t\t\tbreak;' +
+                '\n\t\t\tcase \'string\':' +
+                '\n\t\t\t\t return \'Received string: \' + value;' +
+                '\n\t\t\t\tbreak;' +
+                '\n\t\t\tcase \'boolean\':' +
+                '\n\t\t\t\treturn !value;' +
+                '\n\t\t\t\tbreak;' +
+                '\n\t\t\tcase \'object\':' +
+                '\n\t\t\t\tvalue.newProperty = \'new value\';' +
+                '\n\t\t\t\treturn value;' +
+                '\n\t\t\t\tbreak;' +
+                '\n\t\t\tdefault:' +
+                '\n\t\t\t\treturn value;' +
+                '\n\t\t}' +
+                '\n\t}' +
+                '\n}';
+        iObject.value = '{"property": "value"}';
+
+        document.addEventListener('cifReady', function() {
+            btn_setMapperF.removeAttribute('disabled');
+        });
+
+        btn_setMapperF.addEventListener('click', function() {
+            genericMapper.setMapperFunction(mapperF.value);
+            btn_setINumber.removeAttribute('disabled');
+            btn_setIString.removeAttribute('disabled');
+            btn_setIBoolean.removeAttribute('disabled');
+            btn_setIObject.removeAttribute('disabled');
+            btn_setIArray.removeAttribute('disabled');
+        });
+        btn_setINumber.addEventListener('click', function() {
+            genericMapper.setInputNumber(parseFloat(iNumber.value));
+        });
+        btn_setIString.addEventListener('click', function() {
+            genericMapper.setInputString(iString.value);
+        });
+        btn_setIBoolean.addEventListener('click', function() {
+            genericMapper.setInputBoolean(JSON.parse(iBoolean.value));
+        });
+        btn_setIObject.addEventListener('click', function() {
+            genericMapper.setInputObject(JSON.parse(iObject.value));
+        });
+        btn_setIArray.addEventListener('click', function() {
+            genericMapper.setInputArray(JSON.parse(iArray.value));
+        });
+    })();
+</script>
+
+</body>
+</html>
