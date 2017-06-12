@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MD to html</title>
+
+    <script src="../../../cubx.core.rte@2.3.1/webcomponents-lite/webcomponents-lite.js"></script>
+    <script>
+        window.cubx = {
+            "CRCInit": {
+                "rootDependencies": [
+                    {
+                        "webpackageId": "com.incowia.cubx-marked-element@1.1.1",
+                        "artifactId": "cubx-marked-element"
+                    },
+                    {
+                        "webpackageId": "ckeditor@1.0.0",
+                        "artifactId": "cubx-ckeditor"
+                    },
+                    {
+                        "webpackageId": "bootstrap-3.3.5@1.1.1",
+                        "artifactId": "bootstrap-bootstrap-css-only"
+                    }
+                ]
+            }
+        }
+    </script>
+    <script src="../../../cubx.core.rte@2.3.1/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
+</head>
+<body>
+<cubx-generic-mapper id="genericMapper"cubx-webpackage-id="this">
+    <cubx-core-connections style="display:none">
+        <cubx-core-connection connection-id="htmlToMd" source="mappedString" destination="mdViewer:markdown"></cubx-core-connection>
+    </cubx-core-connections>
+</cubx-generic-mapper>
+<div class="container">
+    <div class="row">
+        <h1>&lt;cubx-generic-mapper&gt; demo: Html to Markdown</h1>
+        <p>
+            This is a simple demo to shown <strong>&lt;cubx-generic-mapper&gt;</strong> in action. The
+            associated <strong>mapperFunction</strong> transforms
+            <em>&lt;p&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;li&gt;,</em> tags into
+            valid markdown format. To aim that <strong>inputString</strong> and <strong>mappedString</strong>
+            slots are used. In order to try it, you just need use the ckeditor.
+        </p>
+        <p>
+            For more info check the <a href="../docs" target="_blank">docs</a> and
+            <a href="index.html" target="_blank">another demo</a> of
+            <strong>&lt;cubx-generic-mapper&gt;</strong>.
+        </p>
+    </div>
+    <div class="row">
+        <cubx-ckeditor class="col-md-12" id="ckeditor" cubx-webpackage-id="ckeditor@1.0.0">
+            <cubx-core-init style="display:none">
+                <cubx-core-slot-init slot="config">{"toolbar":[{"name":"basicstyles","items":["Bold","Italic"]},{"name":"paragraph","items":["BulletedList"]}]}</cubx-core-slot-init>
+            </cubx-core-init>
+            <cubx-core-connections style="display:none">
+                <cubx-core-connection connection-id="content" source="dataAfterChange" destination="genericMapper:inputString"></cubx-core-connection>
+            </cubx-core-connections>
+        </cubx-ckeditor>
+    </div>
+    <div class="row">
+        <h2>Mapped html markup from ckeditor into markdown format</h2>
+        <cubx-marked-element class="col-md-12 panel panel-default" id="mdViewer" cubx-webpackage-id="com.incowia.cubx-marked-element@1.1.1">
+        </cubx-marked-element>
+    </div>
+</div>
+
+<script>
+    (function(){
+        'use strict';
+        var genericMapper = document.querySelector('cubx-generic-mapper');
+        function htmlToMd (htmlCode) {
+          var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
+          mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
+          mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
+          mdCode = mdCode.replace(/(\t<li>)/g, '* ');
+          return mdCode;
+        }
+
+        document.addEventListener('cifReady', function() {
+            genericMapper.setMapperFunction(htmlToMd.toString());
+        });
+    })();
+</script>
+</body>
+</html>

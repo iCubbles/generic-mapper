@@ -47,6 +47,11 @@
             "description": "Demo app..."
           },
           {
+            "name": "html-to-md demo",
+            "path": "/demo/html-to-md.html",
+            "description": "Demo app..."
+          },
+          {
             "name": "docs",
             "path": "/docs/index.html",
             "description": "Show the interface of this component."
