@@ -39,7 +39,7 @@
     "elementaryComponents": [
       {
         "artifactId": "cubx-generic-mapper",
-        "description": "Component to provide a function to be called when its slots values change",
+        "description": "Component to provide a function to be called when its input slots values change, these new values will be mapped by the function. Finally, mapped values will be set to output slots.",
         "runnables": [
           {
             "name": "demo",
@@ -67,28 +67,32 @@
             "type": "string",
             "direction": [
               "input"
-            ]
+            ],
+            "description": "Function to be used to mapped input slot values. Similar to hook functions in connections."
           },
           {
             "slotId": "inputString",
             "type": "string",
             "direction": [
               "input"
-            ]
+            ],
+            "description": "Slot to use when a string value is to be mapped."
           },
           {
             "slotId": "inputNumber",
             "type": "number",
             "direction": [
               "input"
-            ]
+            ],
+            "description": "Slot to use when a number value is to be mapped."
           },
           {
             "slotId": "inputBoolean",
             "type": "boolean",
             "direction": [
               "input"
-            ]
+            ],
+            "description": "Slot to use when a boolean value is to be mapped."
           },
           {
             "slotId": "inputObject",
@@ -96,49 +100,56 @@
             "direction": [
               "input",
               "output"
-            ]
+            ],
+            "description": "Slot to use when an object value is to be mapped."
           },
           {
             "slotId": "inputArray",
             "type": "array",
             "direction": [
               "input"
-            ]
+            ],
+            "description": "Slot to use when an array value is to be mapped."
           },
           {
             "slotId": "mappedString",
             "type": "string",
             "direction": [
               "output"
-            ]
+            ],
+            "description": "After inputString value is processed by mapperFunction, the mapped value will be set to this slot."
           },
           {
             "slotId": "mappedNumber",
             "type": "number",
             "direction": [
               "output"
-            ]
+            ],
+            "description": "After inputNumber value is processed by mapperFunction, the mapped value will be set to this slot."
           },
           {
             "slotId": "mappedBoolean",
             "type": "boolean",
             "direction": [
               "output"
-            ]
+            ],
+            "description": "After inputBoolean value is processed by mapperFunction, the mapped value will be set to this slot."
           },
           {
             "slotId": "mappedObject",
             "type": "object",
             "direction": [
               "output"
-            ]
+            ],
+            "description": "After inputObject value is processed by mapperFunction, the mapped value will be set to this slot."
           },
           {
             "slotId": "mappedArray",
             "type": "array",
             "direction": [
               "output"
-            ]
+            ],
+            "description": "After inputArray value is processed by mapperFunction, the mapped value will be set to this slot."
           }
         ]
       }
