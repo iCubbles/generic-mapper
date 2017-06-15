@@ -19,7 +19,11 @@
                     },
                     {
                         "webpackageId": "bootstrap-3.3.5@1.1.1",
-                        "artifactId": "bootstrap-bootstrap-css-only"
+                        "artifactId": "bootstrap"
+                    },
+                    {
+                        "webpackageId": "highlightjs-9.3.0@1.1.0",
+                        "artifactId": "highlightjs-github-gist"
                     }
                 ]
             }
@@ -43,26 +47,47 @@
             valid markdown format. To aim that <strong>inputString</strong> and <strong>mappedString</strong>
             slots are used. In order to try it, you just need use the ckeditor.
         </p>
+    </div>
+    <div class="row panel panel-default">
+        <div class="col-md-6 ">
+            <h2>Ckeditor</h2>
+            <cubx-ckeditor id="ckeditor" cubx-webpackage-id="ckeditor@1.0.0">
+                <cubx-core-init style="display:none">
+                    <cubx-core-slot-init slot="config">{"toolbar":[{"name":"basicstyles","items":["Bold","Italic"]},{"name":"paragraph","items":["BulletedList"]}]}</cubx-core-slot-init>
+                </cubx-core-init>
+                <cubx-core-connections style="display:none">
+                    <cubx-core-connection connection-id="content" source="dataAfterChange" destination="genericMapper:inputString"></cubx-core-connection>
+                </cubx-core-connections>
+            </cubx-ckeditor>
+        </div>
+        <div class="col-md-6 ">
+            <h2>Markdown</h2>
+            <div class="panel panel-default">
+                <cubx-marked-element id="mdViewer" cubx-webpackage-id="com.incowia.cubx-marked-element@1.1.1">
+                </cubx-marked-element>
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mapper function</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <pre><code class="js"></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <p>
             For more info check the <a href="../docs" target="_blank">docs</a> and
             <a href="index.html" target="_blank">another demo</a> of
             <strong>&lt;cubx-generic-mapper&gt;</strong>.
         </p>
-    </div>
-    <div class="row">
-        <cubx-ckeditor class="col-md-12" id="ckeditor" cubx-webpackage-id="ckeditor@1.0.0">
-            <cubx-core-init style="display:none">
-                <cubx-core-slot-init slot="config">{"toolbar":[{"name":"basicstyles","items":["Bold","Italic"]},{"name":"paragraph","items":["BulletedList"]}]}</cubx-core-slot-init>
-            </cubx-core-init>
-            <cubx-core-connections style="display:none">
-                <cubx-core-connection connection-id="content" source="dataAfterChange" destination="genericMapper:inputString"></cubx-core-connection>
-            </cubx-core-connections>
-        </cubx-ckeditor>
-    </div>
-    <div class="row">
-        <h2>Mapped html markup from ckeditor into markdown format</h2>
-        <cubx-marked-element class="col-md-12 panel panel-default" id="mdViewer" cubx-webpackage-id="com.incowia.cubx-marked-element@1.1.1">
-        </cubx-marked-element>
     </div>
 </div>
 
@@ -70,16 +95,20 @@
     (function(){
         'use strict';
         var genericMapper = document.querySelector('cubx-generic-mapper');
+        var code = document.querySelector('code');
         function htmlToMd (htmlCode) {
-          var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
-          mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
-          mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
-          mdCode = mdCode.replace(/(\t<li>)/g, '* ');
-          return mdCode;
+            var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
+            mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
+            mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
+            mdCode = mdCode.replace(/(\t<li>)/g, '* ');
+            return mdCode;
         }
 
         document.addEventListener('cifReady', function() {
-            genericMapper.setMapperFunction(htmlToMd.toString());
+            var functionString = htmlToMd.toString();
+            genericMapper.setMapperFunction(functionString);
+            code.appendChild(document.createTextNode(functionString));
+            hljs.highlightBlock(code);
         });
     })();
 </script>

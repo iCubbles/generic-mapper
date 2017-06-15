@@ -1,7 +1,7 @@
 {
   "name": "generic-mapper",
   "groupId": "",
-  "version": "0.1.0-SNAPSHOT",
+  "version": "1.0.0-SNAPSHOT",
   "modelVersion": "9.1.1",
   "docType": "webpackage",
   "author": {
@@ -12,30 +12,6 @@
   "keywords": [],
   "man": [],
   "artifacts": {
-    "apps": [
-      {
-        "artifactId": "app",
-        "description": "This is a simple pre-generated app.",
-        "runnables": [
-          {
-            "name": "app",
-            "path": "/index.html",
-            "description": "Call this app as a simple demo."
-          }
-        ]
-      },
-      {
-        "artifactId": "docs",
-        "description": "Generated webpackage documentation.",
-        "runnables": [
-          {
-            "name": "docs",
-            "path": "/index.html",
-            "description": "Show the interface of this component."
-          }
-        ]
-      }
-    ],
     "elementaryComponents": [
       {
         "artifactId": "cubx-generic-mapper",
@@ -103,8 +79,7 @@
             "slotId": "inputObject",
             "type": "object",
             "direction": [
-              "input",
-              "output"
+              "input"
             ],
             "description": "Slot to use when an object value is to be mapped."
           },
