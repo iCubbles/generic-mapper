@@ -1,7 +1,7 @@
 {
   "name": "generic-mapper",
   "groupId": "",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "1.0.0",
   "modelVersion": "9.1.1",
   "docType": "webpackage",
   "author": {

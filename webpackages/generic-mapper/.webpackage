@@ -6,6 +6,10 @@
       "dryRun": true
     },
     "release": {
+      "url": "https://cubbles.world/shared",
+      "proxy": ""
+    },
+	"sandbox": {
       "url": "https://cubbles.world/sandbox",
       "proxy": ""
     }
