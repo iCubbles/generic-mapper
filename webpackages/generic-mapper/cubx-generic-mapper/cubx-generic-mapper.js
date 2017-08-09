@@ -78,7 +78,29 @@
      * @private
      */
     _handleValueChanged: function (slotName, value) {
-      this[this._determineSetOutputSlotMethodName(slotName)](this._callMapperFunction(value));
+      var mappedValue = this._callMapperFunction(value);
+      switch (typeof(mappedValue)) {
+        case 'object':
+          if (Array.isArray(mappedValue)){
+            this.setMappedArray(mappedValue);
+          } else {
+            this.setMappedObject(mappedValue);
+          }
+          break;
+        case 'number':
+          this.setMappedNumber(mappedValue);
+          break;
+        case 'string':
+          this.setMappedString(mappedValue);
+          break;
+        case 'boolean':
+          this.setMappedBoolean(mappedValue);
+          break;
+        default:
+          this.setMappedObject(mappedValue);
+          break;
+      }
+      // this[this._determineSetOutputSlotMethodName(slotName)](this._callMapperFunction(value));
     },
 
     /**

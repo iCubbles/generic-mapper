@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>MD to html</title>
 
-    <script src="../../../cubx.core.rte@2.3.1/webcomponents-lite/webcomponents-lite.js"></script>
+    <script src="../../../cubx.core.rte@2.4.0/webcomponents-lite/webcomponents-lite.js"></script>
     <script>
         window.cubx = {
             "CRCInit": {
@@ -29,7 +29,7 @@
             }
         }
     </script>
-    <script src="../../../cubx.core.rte@2.3.1/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
+    <script src="../../../cubx.core.rte@2.4.0/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
 </head>
 <body>
 <cubx-generic-mapper id="genericMapper"cubx-webpackage-id="this">
@@ -97,10 +97,12 @@
         var genericMapper = document.querySelector('cubx-generic-mapper');
         var code = document.querySelector('code');
         function htmlToMd (htmlCode) {
-            var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
+            console.log('htmlCode', htmlCode);
+            var mdCode = htmlCode.replace(/(&lt;p&gt;|&lt;\/p&gt;|&lt;ul&gt;|&lt;\/ul&gt;|&lt;\/li&gt;)/g, '');
             mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
             mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
-            mdCode = mdCode.replace(/(\t<li>)/g, '* ');
+            mdCode = mdCode.replace(/(&lt;li&gt;)/g, '* ');
+          console.log('mdCode', mdCode);
             return mdCode;
         }
 
