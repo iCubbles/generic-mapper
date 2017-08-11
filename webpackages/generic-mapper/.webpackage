@@ -5,6 +5,10 @@
       "proxy": "",
       "dryRun": true
     },
+    "local": {
+      "url": "http://cubbles-base-local/shared",
+      "proxy": ""
+    },
     "release": {
       "url": "https://cubbles.world/shared",
       "proxy": ""
