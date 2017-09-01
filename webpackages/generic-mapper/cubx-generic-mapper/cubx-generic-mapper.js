@@ -1,3 +1,4 @@
+/* global DOMParser */
 (function () {
   'use strict';
   /**
@@ -79,9 +80,9 @@
      */
     _handleValueChanged: function (slotName, value) {
       var mappedValue = this._callMapperFunction(value);
-      switch (typeof(mappedValue)) {
+      switch (typeof mappedValue) {
         case 'object':
-          if (Array.isArray(mappedValue)){
+          if (Array.isArray(mappedValue)) {
             this.setMappedArray(mappedValue);
           } else {
             this.setMappedObject(mappedValue);
@@ -124,13 +125,19 @@
       if (funcString) {
         try {
           if (typeof funcString === 'string') {
-            if (funcString.trim().substr(0, 8) === 'function') {
-              var startBody = funcString.indexOf('{') + 1;
-              var endBody = funcString.lastIndexOf('}');
-              var startArgs = funcString.indexOf('(') + 1;
-              var endArgs = funcString.indexOf(')');
+            var parser = new DOMParser();
+            var dom = parser.parseFromString(
+              '<!doctype html><body>' + funcString,
+              'text/html');
+            var decodedFuncString = dom.body.textContent;
+            decodedFuncString = decodedFuncString.replace(/\\/g, '');
+            if (decodedFuncString.trim().substr(0, 8) === 'function') {
+              var startBody = decodedFuncString.indexOf('{') + 1;
+              var endBody = decodedFuncString.lastIndexOf('}');
+              var startArgs = decodedFuncString.indexOf('(') + 1;
+              var endArgs = decodedFuncString.indexOf(')');
               /* eslint-disable no-new-func */
-              var func = new Function(funcString.substring(startArgs, endArgs), funcString.substring(
+              var func = new Function(decodedFuncString.substring(startArgs, endArgs), decodedFuncString.substring(
                 startBody, endBody));
               /* eslint-enable no-new-func */
               return func(value);
