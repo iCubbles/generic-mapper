@@ -24,3 +24,5 @@ webpackages/*_dist/
 webpackages/**/test-results
 
 .workspace
+
+.vscode
