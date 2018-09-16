@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>MD to html</title>
 
-    <script src="../../../cubx.core.rte@2.3.1/webcomponents-lite/webcomponents-lite.js"></script>
+    <script src="../../../cubx.core.rte@3.0.0-SNAPSHOT/webcomponents/custom-elements-es5-adapter.js"></script>
+    <script src="../../../cubx.core.rte@3.0.0-SNAPSHOT/webcomponents/webcomponents-lite.js"></script>
+    <!--
+        Refer to the crc-loader artifact from a Cubbles-Base.
+        Take care: All other dependencies are expected to be available within the same Base!
+
+        Want to add a 'main' -script to be executed after the dependencies have been loaded?
+        If yes, add the following attribute: data-crc-main="js/my-script.js"
+    -->
     <script>
         window.cubx = {
             "CRCInit": {
-                "rootDependencies": [
-                    {
-                        "webpackageId": "com.incowia.cubx-marked-element@1.1.1",
-                        "artifactId": "cubx-marked-element"
+                "rootDependencies": [{
+                        "webpackageId": "com.incowia.basic-html-components@2.0.0-SNAPSHOT",
+                        "artifactId": "cubx-textarea"
                     },
                     {
-                        "webpackageId": "ckeditor@1.0.0",
+                        "webpackageId": "ckeditor@2.0.0-SNAPSHOT",
                         "artifactId": "cubx-ckeditor"
                     },
                     {
@@ -28,89 +36,99 @@
                 ]
             }
         }
+
     </script>
-    <script src="../../../cubx.core.rte@2.3.1/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
+    <script src="../../../cubx.core.rte@3.0.0-SNAPSHOT/crc-loader/js/main.js" data-crcinit-loadcif="true"></script>
 </head>
+
 <body>
-<cubx-generic-mapper id="genericMapper"cubx-webpackage-id="this">
-    <cubx-core-connections style="display:none">
-        <cubx-core-connection connection-id="htmlToMd" source="mappedString" destination="mdViewer:markdown"></cubx-core-connection>
-    </cubx-core-connections>
-</cubx-generic-mapper>
-<div class="container">
-    <div class="row">
-        <h1>&lt;cubx-generic-mapper&gt; demo: Html to Markdown</h1>
-        <p>
-            This is a simple demo to shown <strong>&lt;cubx-generic-mapper&gt;</strong> in action. The
-            associated <strong>mapperFunction</strong> transforms
-            <em>&lt;p&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;li&gt;,</em> tags into
-            valid markdown format. To aim that <strong>inputString</strong> and <strong>mappedString</strong>
-            slots are used. In order to try it, you just need use the ckeditor.
-        </p>
-    </div>
-    <div class="row panel panel-default">
-        <div class="col-md-6 ">
-            <h2>Ckeditor</h2>
-            <cubx-ckeditor id="ckeditor" cubx-webpackage-id="ckeditor@1.0.0">
-                <cubx-core-init style="display:none">
-                    <cubx-core-slot-init slot="config">{"toolbar":[{"name":"basicstyles","items":["Bold","Italic"]},{"name":"paragraph","items":["BulletedList"]}]}</cubx-core-slot-init>
-                </cubx-core-init>
-                <cubx-core-connections style="display:none">
-                    <cubx-core-connection connection-id="content" source="dataAfterChange" destination="genericMapper:inputString"></cubx-core-connection>
-                </cubx-core-connections>
-            </cubx-ckeditor>
+    <cubx-generic-mapper id="genericMapper" cubx-webpackage-id="this">
+        <cubx-core-connections style="display:none">
+            <cubx-core-connection connection-id="htmlToMd" source="mappedString" destination="mdViewer:value"></cubx-core-connection>
+        </cubx-core-connections>
+    </cubx-generic-mapper>
+    <div class="container">
+        <div class="row">
+            <h1>&lt;cubx-generic-mapper&gt; demo: Html to Markdown</h1>
+            <p>
+                This is a simple demo to shown <strong>&lt;cubx-generic-mapper&gt;</strong> in action. The
+                associated <strong>mapperFunction</strong> transforms
+                <em>&lt;p&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;li&gt;,</em> tags into
+                valid markdown format. To aim that <strong>inputString</strong> and <strong>mappedString</strong>
+                slots are used. In order to try it, you just need use the ckeditor.
+            </p>
         </div>
-        <div class="col-md-6 ">
-            <h2>Markdown</h2>
-            <div class="panel panel-default">
-                <cubx-marked-element id="mdViewer" cubx-webpackage-id="com.incowia.cubx-marked-element@1.1.1">
-                </cubx-marked-element>
+        <div class="row panel panel-default">
+            <div class="col-md-6 ">
+                <h2>Ckeditor</h2>
+                <cubx-ckeditor id="ckeditor" cubx-webpackage-id="ckeditor@1.0.0">
+                    <cubx-core-init style="display:none">
+                        <cubx-core-slot-init slot="config">{"toolbar":[{"name":"basicstyles","items":["Bold","Italic"]},{"name":"paragraph","items":["BulletedList"]}]}</cubx-core-slot-init>
+                    </cubx-core-init>
+                    <cubx-core-connections style="display:none">
+                        <cubx-core-connection connection-id="content" source="dataAfterChange" destination="genericMapper:inputString"></cubx-core-connection>
+                    </cubx-core-connections>
+                </cubx-ckeditor>
             </div>
-        </div>
-    </div>
-    <div class="row panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mapper function</a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <pre><code class="js"></code></pre>
+            <div class="col-md-6 ">
+                <h2>Markdown</h2>
+                <div class="panel panel-default">
+                    <cubx-textarea id="mdViewer" cubx-webpackage-id="com.incowia.basic-html-components@2.0.0-SNAPSHOT">
+                        <cubx-core-init style="display:none">
+                            <cubx-core-slot-init slot="cols">80</cubx-core-slot-init>
+                            <cubx-core-slot-init slot="rows">12</cubx-core-slot-init>
+                        </cubx-core-init>
+                    </cubx-textarea>
                 </div>
             </div>
         </div>
+        <div class="row panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Mapper function</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <pre><code class="js"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                For more info check the <a href="../docs" target="_blank">docs</a> and
+                <a href="index.html" target="_blank">another demo</a> of
+                <strong>&lt;cubx-generic-mapper&gt;</strong>.
+            </p>
+        </div>
     </div>
-    <div class="row">
-        <p>
-            For more info check the <a href="../docs" target="_blank">docs</a> and
-            <a href="index.html" target="_blank">another demo</a> of
-            <strong>&lt;cubx-generic-mapper&gt;</strong>.
-        </p>
-    </div>
-</div>
 
-<script>
-    (function(){
-        'use strict';
-        var genericMapper = document.querySelector('cubx-generic-mapper');
-        var code = document.querySelector('code');
-        function htmlToMd (htmlCode) {
-            var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
-            mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
-            mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
-            mdCode = mdCode.replace(/(\t<li>)/g, '* ');
-            return mdCode;
-        }
+    <script>
+        (function () {
+            'use strict';
+            var genericMapper = document.querySelector('cubx-generic-mapper');
+            var code = document.querySelector('code');
 
-        document.addEventListener('cifReady', function() {
-            var functionString = htmlToMd.toString();
-            genericMapper.setMapperFunction(functionString);
-            code.appendChild(document.createTextNode(functionString));
-            hljs.highlightBlock(code);
-        });
-    })();
-</script>
+            function htmlToMd(htmlCode) {
+                var mdCode = htmlCode.replace(/(<p>|<\/p>|<ul>|<\/ul>|<\/li>)/g, '');
+                mdCode = mdCode.replace(/(<strong>|<\/strong>)/g, '**');
+                mdCode = mdCode.replace(/(<em>|<\/em>)/g, '_');
+                mdCode = mdCode.replace(/(\t<li>)/g, '* ');
+                mdCode = mdCode.replace(/(&nbsp;)/g, ' ');
+                return mdCode;
+            }
+
+            document.addEventListener('cifReady', function () {
+                var functionString = htmlToMd.toString();
+                genericMapper.setMapperFunction(functionString);
+                code.appendChild(document.createTextNode(functionString));
+                hljs.highlightBlock(code);
+            });
+        })();
+
+    </script>
 </body>
+
 </html>
