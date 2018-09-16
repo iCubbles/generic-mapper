@@ -1,8 +1,8 @@
 {
   "name": "generic-mapper",
   "groupId": "",
-  "version": "1.1.0-SNAPSHOT",
-  "modelVersion": "9.1.1",
+  "version": "2.0.0-SNAPSHOT",
+  "modelVersion": "10.0.0",
   "docType": "webpackage",
   "author": {
     "name": "Edwin Gamboa",
@@ -38,8 +38,8 @@
         ],
         "dependencies": [
           {
-            "webpackageId": "cubx.core.rte@2.3.1",
-            "artifactId": "cubxpolymer"
+            "webpackageId": "cubx.core.rte@3.0.0-SNAPSHOT",
+            "artifactId": "cubxcomponent"
           }
         ],
         "slots": [
