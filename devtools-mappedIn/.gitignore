@@ -32,3 +32,5 @@ node_modules
 
 # workspace within the devtools (because it's for devtools development only)
 webpackages
+
+**/package-lock.json
